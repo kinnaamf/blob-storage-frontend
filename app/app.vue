@@ -1,5 +1,11 @@
 <template>
+  <Body class="min-h-screen bg-brand-bg">
   <NuxtLayout>
-    <NuxtPage></NuxtPage>
+    <NuxtPage/>
   </NuxtLayout>
+  </Body>
 </template>
+
+<script setup lang="ts">
+
+</script>

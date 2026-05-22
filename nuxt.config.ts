@@ -9,6 +9,4 @@ export default defineNuxtConfig({
     'nuxt-lucide-icons',
   ],
   css: ['@/assets/pcss/main.pcss'],
-
-
 })

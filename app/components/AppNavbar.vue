@@ -14,7 +14,7 @@
       />
 
       <span class="text-brand-muted group-hover:text-brand-foreground group-[.active]:text-brand-primary transition-colors duration-200">
-    {{ item.title }}
+        {{ item.title }}
       </span>
     </NuxtLink>
   </nav>
