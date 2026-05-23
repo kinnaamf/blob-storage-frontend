@@ -26,7 +26,9 @@
     </aside>
     <div class="pl-64 flex-1 min-h-screen">
       <AppHeader />
-      <slot />
+      <main class="p-6">
+        <slot />
+      </main>
     </div>
   </div>
 </template>
