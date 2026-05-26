@@ -1,10 +1,11 @@
-import { LucideCloudUpload, LucideFileUp, LucideFileText, LucideFolderClosed, LucideVideo, LucideFileCode, LucideFile } from '#components'
+import { LucideFile, LucideFileCode, LucideFileText, LucideFolderClosed, LucideVideo } from '#components'
 
 export const useFileUploader = () => {
   const isDragging = ref<boolean>(false)
   const isLoading = ref<boolean>(false)
 
   const filesToUpload = ref<File[]>([])
+  const uploadedFiles = ref<File[]>([])
   const fileInput = ref<HTMLInputElement | null>(null)
 
   const triggerFileInput = () => {
@@ -14,45 +15,53 @@ export const useFileUploader = () => {
   }
 
   const handleFileChange = (event: Event) => {
-    isLoading.value = true
-
     const target = event.target as HTMLInputElement
     if (target.files) {
-      filesToUpload.value = Array.from(target.files)
+      processFiles(target.files)
+    }
+  }
+
+  const processFiles = (files: FileList) => {
+    const MAX_SIZE = 100 * 1024 * 1024
+    const newFiles = Array.from(files)
+
+    const FORBIDDEN_EXTENSTIONS = ['.sh', '.exe']
+
+    const hasForbiddenFile = newFiles.some(file => {
+      const ext = getExtension(file.name)
+      return FORBIDDEN_EXTENSTIONS.includes(ext)
+    })
+
+    if (hasForbiddenFile) {
+      alert('Forbidden extensions are not allowed')
+      return
     }
 
-    setTimeout(() => {
-      isLoading.value = false
-    }, 2000)
+    const alreadyUploadedSize = filesToUpload.value.reduce((sum, file) => sum + file.size, 0)
+    const newFilesSize = newFiles.reduce((sum, file) => sum + file.size, 0)
+
+    if (alreadyUploadedSize + newFilesSize > MAX_SIZE) {
+      alert('Total size of files reaches upload limit')
+      return
+    }
+
+    const alreadyUploadedNames = filesToUpload.value.map(file => file.name)
+
+    const uniqueNewFiles = newFiles.filter(file => !alreadyUploadedNames.includes(file.name))
+
+
+
+    filesToUpload.value.push(...uniqueNewFiles)
   }
 
   const handleDrop = (event: DragEvent) => {
     isDragging.value = false
-    isLoading.value = true
 
     const files = event.dataTransfer?.files
 
     if (files) {
-      const MAX_SIZE = 100 * 1024 * 1024
-      const newFiles = Array.from(files)
-
-      const alreadyUploadedSize = filesToUpload.value.reduce((sum, file) => sum + file.size, 0)
-
-      const newFilesSize = newFiles.reduce((sum, file) => sum + file.size, 0)
-
-      if (alreadyUploadedSize + newFilesSize > MAX_SIZE) {
-        alert('Total size of files reaches upload limit')
-        return
-      }
-
-      filesToUpload.value.push(...newFiles)
+      processFiles(files)
     }
-
-    console.log(filesToUpload.value)
-
-    // setTimeout(() => {
-    //   isLoading.value = false
-    // }, 2000)
   }
 
   const getFileIcon = (file: File) => {
@@ -86,7 +95,11 @@ export const useFileUploader = () => {
   }
 
   const storeFiles = () => {
-    console.log(filesToUpload.value)
+    uploadedFiles.value.push(...filesToUpload.value)
+
+    // console.log(uploadedFiles.value)
+
+    filesToUpload.value = []
   }
 
   const normalizeFilename = (filename: string) => {
@@ -97,13 +110,21 @@ export const useFileUploader = () => {
     }
 
     if (lastExt === -1) {
-      return `${filename.slice(0, 11)}...`
+      return `${ filename.slice(0, 11) }...`
     }
 
     const name = filename.slice(0, lastExt)
     const ext = filename.slice(lastExt)
 
-    return `${name.slice(0, 11)}...${ext}`
+    return `${ name.slice(0, 11) }...${ ext }`
+  }
+
+  const getExtension = (filename: string): string => {
+    const lastExt = filename.lastIndexOf('.')
+
+    if (lastExt === -1) return ''
+
+    return filename.slice(lastExt).toLowerCase()
   }
 
   return {
@@ -119,7 +140,8 @@ export const useFileUploader = () => {
     handleDrop,
     clearFiles,
     storeFiles,
-    normalizeFilename
+    normalizeFilename,
+    uploadedFiles
   }
 
 }

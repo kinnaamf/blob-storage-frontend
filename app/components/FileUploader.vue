@@ -118,6 +118,8 @@ const {
   handleDrop,
   clearFiles,
   storeFiles,
-  normalizeFilename
+  normalizeFilename,
+    uploadedFiles
+
 } = useFileUploader()
 </script>

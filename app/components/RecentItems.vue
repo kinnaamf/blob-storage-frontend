@@ -25,9 +25,9 @@
           <LucideList :size="16"
                       :class="viewMode === 'list' ? '' : 'stroke-brand-muted hover:stroke-brand-foreground transition-all duration-100'"/>
         </button>
-
       </div>
     </div>
+
   </section>
 </template>
 
@@ -35,6 +35,7 @@
 const filesCount = ref(4)
 
 const viewMode = ref<'grid' | 'list'>('grid')
+
 </script>
 
 <style scoped lang="postcss">
