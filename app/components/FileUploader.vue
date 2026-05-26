@@ -59,9 +59,9 @@
         <li
             v-for="file in filesToUpload"
             :key="file.name"
-            class="flex items-center justify-between gap-2 bg-brand-secondary/40 px-4 py-2.5 h-12 max-w-72 min-w-64 rounded-xl border border-brand-border/30"
+            class="flex flex-col items-center justify-between gap-2 bg-brand-secondary/40 px-4 py-2.5 rounded-xl border border-brand-border/30"
         >
-          <div class="w-9 h-9 rounded-lg bg-brand-card flex items-center justify-center shrink-0 overflow-hidden border border-brand-border/30">
+          <div class="w-36 h-36 rounded-lg bg-brand-card flex items-center justify-center shrink-0 overflow-hidden border border-brand-border/30">
             <img
                 v-if="file.type.startsWith('image/')"
                 :src="getFilePreview(file)"
@@ -72,15 +72,19 @@
             <component
                 v-else
                 :is="getFileIcon(file)"
-                :size="18"
+                :size="64"
                 :class="getFileIconClass(file)"
             />
           </div>
-          <span class="text-sm font-medium text-white">{{ `${normalizeFilename(file.name).filename} ${normalizeFilename(file.name).extension}` }}</span>
-          <span class="text-xs text-brand-muted shrink-0">{{
-              `${ getSize(file.size).fileSize }
-              ${ getSize(file.size).storageUnit }` }}
-          </span>
+          <div class="flex justify-between items-center w-full">
+            <h3 class="text-sm font-medium text-white">{{ normalizeFilename(file.name) }}</h3>
+            <h3 class="text-xs text-brand-muted shrink-0">
+              {{
+                `${ getSize(file.size).fileSize }
+                 ${ getSize(file.size).storageUnit }`
+              }}
+          </h3>
+          </div>
         </li>
       </ul>
 
@@ -117,7 +121,3 @@ const {
   normalizeFilename
 } = useFileUploader()
 </script>
-
-<style scoped lang="postcss">
-
-</style>

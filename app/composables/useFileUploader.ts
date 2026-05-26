@@ -31,15 +31,28 @@ export const useFileUploader = () => {
     isLoading.value = true
 
     const files = event.dataTransfer?.files
-    if (files && filesToUpload.value.length != 0) {
-      filesToUpload.value.push(files)
-    } else {
-      filesToUpload.value = Array.from(files)
+
+    if (files) {
+      const MAX_SIZE = 100 * 1024 * 1024
+      const newFiles = Array.from(files)
+
+      const alreadyUploadedSize = filesToUpload.value.reduce((sum, file) => sum + file.size, 0)
+
+      const newFilesSize = newFiles.reduce((sum, file) => sum + file.size, 0)
+
+      if (alreadyUploadedSize + newFilesSize > MAX_SIZE) {
+        alert('Total size of files reaches upload limit')
+        return
+      }
+
+      filesToUpload.value.push(...newFiles)
     }
 
-    setTimeout(() => {
-      isLoading.value = false
-    }, 2000)
+    console.log(filesToUpload.value)
+
+    // setTimeout(() => {
+    //   isLoading.value = false
+    // }, 2000)
   }
 
   const getFileIcon = (file: File) => {
@@ -79,23 +92,18 @@ export const useFileUploader = () => {
   const normalizeFilename = (filename: string) => {
     const lastExt = filename.lastIndexOf('.')
 
-    let ext = filename.slice(lastExt)
-
-    const finalName = ref<string>('')
-
-    if (filename.length <= 14) return filename
-    else {
-      let subfilename = filename.slice(0, 11)
-      finalName.value = `${subfilename}...`
+    if (filename.length <= 14) {
+      return filename
     }
 
-    console.log(finalName.value)
-    console.log(ext)
-
-    return {
-      filename: finalName.value,
-      extension: ext
+    if (lastExt === -1) {
+      return `${filename.slice(0, 11)}...`
     }
+
+    const name = filename.slice(0, lastExt)
+    const ext = filename.slice(lastExt)
+
+    return `${name.slice(0, 11)}...${ext}`
   }
 
   return {
