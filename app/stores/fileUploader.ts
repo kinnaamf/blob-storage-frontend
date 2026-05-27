@@ -28,16 +28,40 @@ export const useFileStore = defineStore("fileStore", () => {
     const alreadyUploadedSize = filesToUpload.value.reduce((sum, file) => sum + file.size, 0);
     const newFilesSize = newFiles.reduce((sum, file) => sum + file.size, 0);
 
+    const processedFiles = newFiles.map(file => {
+      let currentName = file.name
+      const lastDot = file.name.lastIndexOf('.')
+
+      const nameWithoutExtension = lastDot !== -1 ? currentName.slice(0, lastDot) : currentName
+      const extension = lastDot !== -1 ? currentName.slice(lastDot) : ''
+
+      let counter = 1
+
+      const isNameTaken = (name: string): boolean => {
+        const inBuffer = filesToUpload.value.some(f => f.name === name)
+        const inStored = uploadedFiles.value.some(f => f.name === name)
+
+        return inBuffer || inStored
+      }
+
+      while (isNameTaken(currentName)) {
+        currentName = `${nameWithoutExtension} (${counter})${extension}`
+        counter++
+      }
+
+      if (currentName !== file.name) {
+        return new File([file], currentName, { type: file.type })
+      }
+
+      return file
+    })
+
     if (alreadyUploadedSize + newFilesSize > MAX_SIZE) {
       alert('Total size of files reaches upload limit')
       return
     }
 
-    const alreadyUploadedNames = filesToUpload.value.map(file => file.name)
-
-    const uniqueNewFiles = newFiles.filter(file => !alreadyUploadedNames.includes(file.name))
-
-    filesToUpload.value.push(...uniqueNewFiles)
+    filesToUpload.value.push(...processedFiles)
   }
 
   const storeFiles = () => {

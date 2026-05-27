@@ -66,14 +66,21 @@ export const useFileUploader = () => {
       return filename
     }
 
-    if (lastExt === -1) {
-      return `${ filename.slice(0, 11) }...`
+    const name = lastExt !== -1 ? filename.slice(0, lastExt) : filename
+    const ext = lastExt !== -1 ? filename.slice(lastExt) : ''
+
+    const counterMatch = name.match(/\s\(\d+\)$/)
+
+    if (counterMatch) {
+      const counterStr = counterMatch[0]
+
+      const maxNameLen = 11 - counterStr.length
+      const cleanName = name.slice(0, Math.max(5, maxNameLen))
+
+      return `${cleanName}...${counterStr}${ext}`
     }
 
-    const name = filename.slice(0, lastExt)
-    const ext = filename.slice(lastExt)
-
-    return `${ name.slice(0, 11) }...${ ext }`
+    return `${name.slice(0, 11)}...${ext}`
   }
 
   const getExtension = (filename: string): string => {
