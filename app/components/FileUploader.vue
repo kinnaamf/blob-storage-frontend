@@ -22,7 +22,7 @@
     >
 
     <div
-        v-if="filesToUpload.length === 0"
+        v-if="fileStore.filesToUpload.length === 0"
         class="flex flex-col items-center justify-center pointer-events-none"
     >
       <div class="flex items-center justify-center mb-4 h-16 w-16 bg-brand-secondary rounded-2xl">
@@ -46,9 +46,9 @@
         @click.stop
     >
       <div class="flex items-center justify-between mb-4 border-b border-brand-border/40 pb-2">
-        <p class="text-sm font-semibold text-brand-foreground">Selected files ({{ filesToUpload.length }})</p>
+        <p class="text-sm font-semibold text-brand-foreground">Selected files ({{ fileStore.filesToUpload.length }})</p>
         <button
-            @click="clearFiles"
+            @click="fileStore.clearFiles()"
             class="text-xs text-rose-500 hover:underline cursor-pointer"
         >
           Clear all
@@ -57,7 +57,7 @@
 
       <ul class="grid grid-cols-4 gap-x-2 gap-y-2 max-h-60 overflow-y-auto pr-1">
         <li
-            v-for="file in filesToUpload"
+            v-for="file in fileStore.filesToUpload"
             :key="file.name"
             class="flex flex-col items-center justify-between gap-2 bg-brand-secondary/40 px-4 py-2.5 rounded-xl border border-brand-border/30"
         >
@@ -89,7 +89,7 @@
       </ul>
 
       <button
-          @click="storeFiles"
+          @click="fileStore.storeFiles()"
           class="flex justify-between items-center gap-2 self-end w-max px-5 py-1.5 bg-brand-primary hover:bg-brand-primary/80 transition-all duration-200 rounded-2xl mt-4">
         <LucideUpload :size="16"/>
         Store Files
@@ -109,17 +109,14 @@ const { getSize } = useFilesize();
 const {
   isDragging,
   isLoading,
-  filesToUpload,
   triggerFileInput,
   getFileIcon,
   getFileIconClass,
   getFilePreview,
   handleFileChange,
   handleDrop,
-  clearFiles,
-  storeFiles,
-  normalizeFilename,
-    uploadedFiles
-
+  normalizeFilename
 } = useFileUploader()
+
+const fileStore = useFileStore()
 </script>

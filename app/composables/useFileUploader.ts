@@ -1,15 +1,16 @@
 import { LucideFile, LucideFileCode, LucideFileText, LucideFolderClosed, LucideVideo } from '#components'
+import { useFileStore } from "~/stores/fileUploader";
 
 export const useFileUploader = () => {
   const isDragging = ref<boolean>(false)
   const isLoading = ref<boolean>(false)
 
-  const filesToUpload = ref<File[]>([])
-  const uploadedFiles = ref<File[]>([])
+  const fileStore = useFileStore()
+
   const fileInput = ref<HTMLInputElement | null>(null)
 
   const triggerFileInput = () => {
-    if (filesToUpload.value.length === 0) {
+    if (fileStore.filesToUpload.length === 0) {
       fileInput.value?.click()
     }
   }
@@ -17,42 +18,10 @@ export const useFileUploader = () => {
   const handleFileChange = (event: Event) => {
     const target = event.target as HTMLInputElement
     if (target.files) {
-      processFiles(target.files)
+      fileStore.processFiles(target.files)
     }
   }
 
-  const processFiles = (files: FileList) => {
-    const MAX_SIZE = 100 * 1024 * 1024
-    const newFiles = Array.from(files)
-
-    const FORBIDDEN_EXTENSTIONS = ['.sh', '.exe']
-
-    const hasForbiddenFile = newFiles.some(file => {
-      const ext = getExtension(file.name)
-      return FORBIDDEN_EXTENSTIONS.includes(ext)
-    })
-
-    if (hasForbiddenFile) {
-      alert('Forbidden extensions are not allowed')
-      return
-    }
-
-    const alreadyUploadedSize = filesToUpload.value.reduce((sum, file) => sum + file.size, 0)
-    const newFilesSize = newFiles.reduce((sum, file) => sum + file.size, 0)
-
-    if (alreadyUploadedSize + newFilesSize > MAX_SIZE) {
-      alert('Total size of files reaches upload limit')
-      return
-    }
-
-    const alreadyUploadedNames = filesToUpload.value.map(file => file.name)
-
-    const uniqueNewFiles = newFiles.filter(file => !alreadyUploadedNames.includes(file.name))
-
-
-
-    filesToUpload.value.push(...uniqueNewFiles)
-  }
 
   const handleDrop = (event: DragEvent) => {
     isDragging.value = false
@@ -60,7 +29,7 @@ export const useFileUploader = () => {
     const files = event.dataTransfer?.files
 
     if (files) {
-      processFiles(files)
+      fileStore.processFiles(files)
     }
   }
 
@@ -88,18 +57,6 @@ export const useFileUploader = () => {
       console.log(e);
       return ''
     }
-  }
-
-  const clearFiles = () => {
-    filesToUpload.value = []
-  }
-
-  const storeFiles = () => {
-    uploadedFiles.value.push(...filesToUpload.value)
-
-    // console.log(uploadedFiles.value)
-
-    filesToUpload.value = []
   }
 
   const normalizeFilename = (filename: string) => {
@@ -130,7 +87,6 @@ export const useFileUploader = () => {
   return {
     isDragging,
     isLoading,
-    filesToUpload,
     fileInput,
     triggerFileInput,
     getFileIcon,
@@ -138,10 +94,7 @@ export const useFileUploader = () => {
     getFilePreview,
     handleFileChange,
     handleDrop,
-    clearFiles,
-    storeFiles,
     normalizeFilename,
-    uploadedFiles
   }
 
 }
