@@ -3,14 +3,14 @@
     <h1 class="text-2xl font-bold text-brand-foreground">Welcome back, {{ getName }}!</h1>
     <p class="mt-1 text-brand-muted">Manage and organize your files in the cloud</p>
   </div>
-  <FileUploader />
+  <AppUploader />
 
   <RecentItems/>
 </template>
 
 <script setup lang="ts">
 
-import FileUploader from "~/components/FileUploader.vue";
+import AppUploader from "~/components/AppUploader.vue";
 
 const { name } = useUserStore();
 
