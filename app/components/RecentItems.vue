@@ -133,9 +133,7 @@ const viewMode = ref<'grid' | 'list'>('grid')
 
 const fileStore = useFileStore()
 
-const { normalizeFilename, getFilePreview, getFileIcon, getFileIconClass, } = useFileUploader()
-
-const { getSize } = useFilesize();
+const { normalizeFilename, getFilePreview, getFileIcon, getFileIconClass, getSize } = useFileUploader()
 
 const hoveredFile = ref<string | null>(null)
 </script>
