@@ -62,7 +62,7 @@
           flex items-center justify-center
           rounded-lg
           hover:bg-brand-secondary transition-all duration-200">
-            <LucideEllipsis :size="16" :class="hoveredFile === file.name ? 'stroke-brand-foregroud' : 'stroke-brand-muted'" />
+            <LucideEllipsis :size="16" :class="hoveredFile === file.name ? 'stroke-brand-foreground' : 'stroke-brand-muted'" />
           </button>
         </div>
 
