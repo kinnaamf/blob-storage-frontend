@@ -4,7 +4,7 @@
     <p class="mt-1 text-brand-muted">Manage and organize your files in the cloud</p>
   </div>
   <AppUploader />
-
+<!--  <AppDropdown/>-->
   <RecentItems/>
 </template>
 
