@@ -45,7 +45,7 @@ export const useFileUploader = () => {
   }
 
   const getFileIconClass = (file: File) => {
-    return 'stroke-blue-500'
+    return 'stroke-brand-primary'
   }
 
   const getFilePreview = (file: File) => {
