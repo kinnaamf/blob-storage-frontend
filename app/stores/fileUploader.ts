@@ -4,6 +4,11 @@ export const useFileStore = defineStore("fileStore", () => {
   const filesToUpload = ref<File[]>([])
   const uploadedFiles = ref<File[]>([])
 
+  const GB_FACTOR = ref<number>(1024 ** 3)
+  const TOTAL_AVAILABLE_SPACE = ref<number>(10 * GB_FACTOR.value)
+
+  const { getSize } = useFileUploader()
+
   const getExtension = (filename: string): string => {
     const lastExt = filename.lastIndexOf(".");
     if (lastExt === -1) return ''
@@ -45,7 +50,7 @@ export const useFileStore = defineStore("fileStore", () => {
       }
 
       while (isNameTaken(currentName)) {
-        currentName = `${nameWithoutExtension} (${counter})${extension}`
+        currentName = `${ nameWithoutExtension } (${ counter })${ extension }`
         counter++
       }
 
@@ -73,6 +78,19 @@ export const useFileStore = defineStore("fileStore", () => {
     return filesToUpload.value = []
   }
 
+  const getTotalUsedSpace = computed(() => {
+    return uploadedFiles.value.reduce((sum, file) => sum + file.size, 0);
+  })
+
+  const getRemainingSpace = computed(() => {
+    return TOTAL_AVAILABLE_SPACE.value - getTotalUsedSpace.value
+  })
+
+  const formattedUsedSpace = computed(() => {
+    const { fileSize, storageUnit } = getSize(getTotalUsedSpace.value)
+    return `${fileSize} ${storageUnit}`
+  })
+
   return {
     filesToUpload,
     uploadedFiles,
@@ -80,5 +98,10 @@ export const useFileStore = defineStore("fileStore", () => {
     getExtension,
     processFiles,
     storeFiles,
+    GB_FACTOR,
+    TOTAL_AVAILABLE_SPACE,
+    getTotalUsedSpace,
+    formattedUsedSpace,
+    getRemainingSpace
   }
 })

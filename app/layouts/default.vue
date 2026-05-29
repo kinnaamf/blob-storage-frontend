@@ -12,46 +12,38 @@
         <div class="rounded-2xl bg-brand-secondary p-4">
           <div class="mb-3 flex items-center justify-between">
             <span class="text-sm font-medium text-brand-foreground">Storage</span>
-            <span class="text-xs text-brand-muted">{{ occupied }} GB of {{ total }} GB</span>
+            <span class="text-xs text-brand-muted">
+              {{ fileStore.formattedUsedSpace }} of {{ fileStore.TOTAL_AVAILABLE_SPACE / fileStore.GB_FACTOR }}
+            </span>
           </div>
           <div class="mb-3 h-2 w-full overflow-hidden rounded-full bg-brand-bg">
             <div
                 class="h-full rounded-full bg-gradient-to-r from-brand-primary to-brand-primary/70 transition-all duration-500"
-                :style="{ width: `${occupied * 10}%` }"
+
             ></div>
           </div>
-          <span class="text-xs text-brand-muted">{{ remaining }} GB remaining</span>
+          <span class="text-xs text-brand-muted">{{ remainingStorageInGB }} GB remaining</span>
         </div>
       </div>
     </aside>
     <div class="pl-64 flex-1 min-h-screen">
-      <AppHeader />
+      <AppHeader/>
       <main class="p-6">
-        <slot />
+        <slot/>
       </main>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+const { getSize } = useFileUploader()
 
-import AppNavbar from "~/components/AppNavbar.vue";
+const fileStore = useFileStore()
 
-const GB_FACTOR = 1024 ** 3;
-
-const totalBytes = ref<number>(10 * GB_FACTOR);
-const usedBytes = ref<number>(3.5 * GB_FACTOR);
-
-const occupied: number = computed(() => {
-  return (((usedBytes.value / GB_FACTOR) * 10) / 10).toFixed(1);
+const remainingStorageInGB = computed(() => {
+  return ((fileStore.TOTAL_AVAILABLE_SPACE / fileStore.GB_FACTOR) - (fileStore.getTotalUsedSpace / fileStore.GB_FACTOR)).toFixed(2)
 })
 
-const total = computed(() => {
-  return (((totalBytes.value / GB_FACTOR) * 10) / 10).toFixed(1);
-})
+console.log(remainingStorageInGB.value)
 
-const remaining = computed(() => {
-  const diff: number = total.value - occupied.value;
-  return ((diff * 10) / 10).toFixed(1);
-})
 </script>

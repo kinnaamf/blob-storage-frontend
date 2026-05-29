@@ -92,7 +92,7 @@ export const useFileUploader = () => {
   }
 
   const getSize = (filesize: number) => {
-    const units = ['KB', 'MB', 'GB']
+    const units = ['B', 'KB', 'MB', 'GB', 'TB']
     let iteration = 0
 
     if (filesize === 0) {
@@ -113,7 +113,7 @@ export const useFileUploader = () => {
 
     return {
       fileSize: formattedSize,
-      storageUnit: units[iteration - 1],
+      storageUnit: units[iteration],
     }
   }
 
