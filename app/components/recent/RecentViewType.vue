@@ -1,11 +1,18 @@
 <script setup lang="ts">
+defineProps<{
+  viewMode: 'grid' | 'list';
+}>()
 
+defineEmits<{
+  (e: 'viewGrid') : void
+  (e: 'viewList') : void
+}>()
 </script>
 
 <template>
   <div class="flex items-center gap-1 rounded-2xl border border-brand-border bg-brand-secondary p-1">
     <button
-        @click="viewMode = 'grid'"
+        @click="$emit('viewGrid')"
         class="h-8 w-8 flex items-center justify-center rounded-xl"
         :class="viewMode === 'grid' ? 'bg-brand-primary' : ''"
     >
@@ -14,7 +21,7 @@
     </button>
 
     <button
-        @click="viewMode = 'list'"
+        @click="$emit('viewList')"
         class="h-8 w-8 flex items-center justify-center rounded-xl"
         :class="viewMode === 'list' ? 'bg-brand-primary' : ''"
     >
@@ -23,7 +30,3 @@
     </button>
   </div>
 </template>
-
-<style scoped lang="postcss">
-
-</style>

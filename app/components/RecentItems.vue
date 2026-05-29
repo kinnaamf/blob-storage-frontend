@@ -2,7 +2,11 @@
   <section class="mt-8">
     <div class="mb-6 flex items-center justify-between">
       <RecentHeading />
-      <RecentViewType />
+      <RecentViewType
+          :view-mode="viewMode"
+          @view-grid="viewMode = 'grid'"
+          @view-list="viewMode = 'list'"
+      />
     </div>
     <div v-if="viewMode === 'grid'" class="grid grid-cols-4 gap-4">
       <RecentGrid />
