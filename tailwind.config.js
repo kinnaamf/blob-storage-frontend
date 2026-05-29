@@ -13,6 +13,7 @@ export default {
           border: '#242933', // border color
           primary: '#6569ff', // button color
           muted: '#8f8f8f', // icon colors
+          popover: '#060B14' // popover
         }
       }
     },
