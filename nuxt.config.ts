@@ -9,4 +9,7 @@ export default defineNuxtConfig({
     'nuxt-lucide-icons',
   ],
   css: ['@/assets/pcss/main.pcss'],
+  app: {
+    pageTransition: {name : 'page', mode: 'out-in'},
+  }
 })
