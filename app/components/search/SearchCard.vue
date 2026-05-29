@@ -1,6 +1,8 @@
 <template>
   <div v-if="file" class="gap-3 flex items-center min-w-0 w-full">
-    <div class="w-9 h-9 bg-brand-primary/10 flex items-center justify-center rounded-xl">
+    <div class="w-9 h-9 bg-brand-primary/10 flex items-center justify-center rounded-xl"
+         :class="getFileIconClass(file)"
+    >
       <img
           v-if="file.type.startsWith('image/')"
           :src="getFilePreview(file)"
@@ -12,7 +14,6 @@
           v-else
           :is="getFileIcon(file)"
           :size="16"
-          :class="getFileIconClass(file)"
       />
     </div>
 
