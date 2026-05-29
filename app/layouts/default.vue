@@ -19,7 +19,7 @@
           <div class="mb-3 h-2 w-full overflow-hidden rounded-full bg-brand-bg">
             <div
                 class="h-full rounded-full bg-gradient-to-r from-brand-primary to-brand-primary/70 transition-all duration-500"
-
+                :style="{ width: `${storagePercentage}%` }"
             ></div>
           </div>
           <span class="text-xs text-brand-muted">{{ remainingStorageInGB }} GB remaining</span>
@@ -33,15 +33,20 @@
       </main>
     </div>
   </div>
+
 </template>
 
 <script setup lang="ts">
-const { getSize } = useFileUploader()
 
 const fileStore = useFileStore()
 
 const remainingStorageInGB = computed(() => {
   return ((fileStore.TOTAL_AVAILABLE_SPACE / fileStore.GB_FACTOR) - (fileStore.getTotalUsedSpace / fileStore.GB_FACTOR)).toFixed(2)
+})
+
+const storagePercentage = computed(() => {
+  if (fileStore.TOTAL_AVAILABLE_SPACE === 0) return 0
+  return (fileStore.getTotalUsedSpace / fileStore.TOTAL_AVAILABLE_SPACE) * 100
 })
 
 console.log(remainingStorageInGB.value)
