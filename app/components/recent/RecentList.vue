@@ -6,7 +6,7 @@
       :class="[index === 0 ? 'rounded-t-2xl' : '', index === fileStore.uploadedFiles.length - 1 ? 'rounded-b-2xl' : '']"
   >
     <div class="flex items-center gap-4">
-      <div class="w-12 h-12 rounded-lg bg-brand-card flex items-center justify-center shrink-0 overflow-hidden border border-brand-border/30">
+      <div class="w-12 h-12 rounded-lg bg-brand-card flex items-center justify-center shrink-0 overflow-hidden border border-brand-border/30 ">
         <img
             v-if="file.type.startsWith('image/')"
             :src="getFilePreview(file)"
@@ -19,6 +19,7 @@
             :is="getFileIcon(file)"
             :size="24"
             :class="getFileIconClass(file)"
+            class="w-full h-full p-2.5"
         />
       </div>
       <div class="flex flex-col">
