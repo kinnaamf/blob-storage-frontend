@@ -10,7 +10,7 @@
         <img
             v-if="file.type.startsWith('image/')"
             :src="getFilePreview(file)"
-            class="w-full h-full object-cover"
+            class="w-full h-full object-cover p-4"
             alt=""
         />
 
@@ -19,6 +19,7 @@
             :is="getFileIcon(file)"
             :size="64"
             :class="getFileIconClass(file)"
+            class="p-4 rounded-2xl"
         />
       </div>
     </div>
@@ -39,10 +40,7 @@
 
     <div>
       <h3 class="text-xs text-brand-muted shrink-0">
-        {{
-          `${ getSize(file.size).fileSize }
-               ${ getSize(file.size).storageUnit }`
-        }}
+        {{`${ getSize(file.size).fileSize } ${ getSize(file.size).storageUnit }` }}
       </h3>
     </div>
 

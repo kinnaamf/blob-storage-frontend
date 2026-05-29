@@ -1,4 +1,4 @@
-import { LucideFile, LucideFileCode, LucideFileText, LucideFolderArchive, LucideVideo } from '#components'
+import { LucideFile, LucideFileCode, LucideFileText, LucideFolderArchive, LucideVideo, LucideFileHeadphone } from '#components'
 import { useFileStore } from "~/stores/fileUploader";
 
 export const useFileUploader = () => {
@@ -36,16 +36,25 @@ export const useFileUploader = () => {
   const getFileIcon = (file: File) => {
     const name = file.name.toLowerCase()
 
-    if (name.endsWith('.pdf')) return LucideFileText
+    if (name.endsWith('.pdf') || name.endsWith('.docx') || name.endsWith('.doc') || name.endsWith('.html')) return LucideFileText
     if (name.endsWith('.zip') || name.endsWith('.rar') || name.endsWith('.7z')) return LucideFolderArchive
     if (name.endsWith('.mov') || name.endsWith('.mp4') || name.startsWith('video/')) return LucideVideo
-    if (name.endsWith('.json') || name.endsWith('.js') || name.endsWith('.ts') || name.endsWith('.html')) return LucideFileCode
+    if (name.endsWith('.json') || name.endsWith('.js') || name.endsWith('.ts') || name.endsWith('.html') || name.endsWith('.cpp') || name.endsWith('.c')) return LucideFileCode
+    if (name.endsWith('.wav') || name.endsWith('.mp3') || name.endsWith('.ogg') || name.startsWith('audio/')) return LucideFileHeadphone
 
     return LucideFile
   }
 
   const getFileIconClass = (file: File) => {
-    return 'stroke-brand-primary'
+    switch (getFileIcon(file)) {
+      case LucideFileText: return 'bg-rose-500/50 stroke-rose-400'
+      case LucideVideo: return 'stroke-brand-primary'
+      case LucideFolderArchive: return 'bg-amber-500/50 stroke-amber-400'
+      case LucideFileHeadphone: return 'bg-cyan-500/50 stroke-cyan-400'
+
+      default: return 'bg-blue-500/50 stroke-sky-400'
+    }
+
   }
 
   const getFilePreview = (file: File) => {

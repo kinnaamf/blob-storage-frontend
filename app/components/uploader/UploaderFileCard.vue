@@ -21,6 +21,7 @@ const { getFileIcon, getSize, getFileIconClass, getFilePreview, normalizeFilenam
         :is="getFileIcon(file)"
         :size="64"
         :class="getFileIconClass(file)"
+        class="p-4 rounded-2xl"
     />
   </div>
   <div class="flex justify-between items-center w-full">
