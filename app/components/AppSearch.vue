@@ -7,10 +7,7 @@
       />
       <input
           ref="inputRef"
-          class="h-10 pl-10 w-full
-        text-sm placeholder:text-brand-muted text-white
-        bg-brand-secondary rounded-2xl border border-brand-border
-        outline-none focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary"
+          class="app-input"
           type="text"
           placeholder="Search files, folders..."
           v-model="searchInput"
@@ -75,3 +72,12 @@ onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside)
 })
 </script>
+
+<style>
+  .app-input {
+    @apply h-10 pl-10 w-full
+    text-sm placeholder:text-brand-muted text-white
+    bg-brand-secondary rounded-2xl border border-brand-border
+    outline-none focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary;
+  }
+</style>
