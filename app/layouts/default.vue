@@ -13,7 +13,7 @@
           <div class="mb-3 flex items-center justify-between">
             <span class="text-sm font-medium text-brand-foreground">Storage</span>
             <span class="text-xs text-brand-muted">
-              {{ fileStore.formattedUsedSpace }} of {{ fileStore.TOTAL_AVAILABLE_SPACE / fileStore.GB_FACTOR }}
+              {{ fileStore.formattedUsedSpace }} of {{ fileStore.TOTAL_AVAILABLE_SPACE / fileStore.GB_FACTOR }} GB
             </span>
           </div>
           <div class="mb-3 h-2 w-full overflow-hidden rounded-full bg-brand-bg">
