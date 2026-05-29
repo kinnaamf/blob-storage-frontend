@@ -7,7 +7,6 @@
       <div v-if="file">
         <SearchCard :file="file"/>
       </div>
-      {{ file.type }}
     </div>
   </div>
 </template>
