@@ -6,7 +6,7 @@
         <tr class="border-b border-brand-border bg-brand-secondary/50">
           <th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-brand-muted"
               v-for="(t, i) in tableHead"
-            :class="{
+              :class="{
                 'text-center': i === 3,
                 'text-right': i === 4,
                 'text-left': i !== 3 && i !== 4
@@ -17,7 +17,10 @@
         </tr>
         </thead>
         <tbody class="divide-y divide-brand-border bg-brand-card">
-        <tr v-for="file in files" class="group transition-colors hover:bg-brand-secondary/30 w-full h-full">
+        <tr class="group transition-colors hover:bg-brand-secondary/30 w-full h-full"
+            v-for="file in files"
+            :key="file.name"
+        >
           <td class="flex gap-3 items-center pl-6 py-4">
             <img
                 v-if="file.type.startsWith('image/')"
@@ -56,7 +59,39 @@
             </div>
           </td>
           <td class="px-6 py-4">
-            Actions
+            <div class="flex items-center justify-end gap-2">
+              <button class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all"
+                      @click="copyLink(file)"
+                      :class="copiedFileId === file.id ? 'bg-emerald-500/10 hover:bg-emerald-500/20' : 'bg-brand-primary/10 hover:bg-brand-primary/20'"
+
+              >
+                <component
+                    :is="copiedFileId === file.id ? LucideExternalLink : LucideCopy"
+                    :class="copiedFileId === file.id ? 'stroke-emerald-500' : 'stroke-brand-primary'"
+                    :size="16"
+                />
+                <span
+                    class="font-medium"
+                    :class="copiedFileId === file.id ? 'text-emerald-500' : 'text-brand-primary'"
+                >
+                  {{ copiedFileId === file.id ? 'Copied!' : 'Copy Link' }}
+                </span>
+              </button>
+
+              <button class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all bg-brand-destructive/10 hover:bg-brand-destructive/20">
+                <LucideTrash
+                    class="stroke-brand-destructive"
+                    :size="16"/>
+                <span class="text-brand-destructive">Revoke Link</span>
+              </button>
+
+              <button class="group hover:bg-brand-muted/10 flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all">
+                <LucideEllipsis
+                    :size="16"
+                    class="stroke-brand-muted transition-all duration-200 group-hover:stroke-brand-foreground"
+                />
+              </button>
+            </div>
           </td>
         </tr>
         </tbody>
@@ -67,6 +102,7 @@
 
 <script setup lang="ts">
 import type { SharedLinkFile } from "~/types/file";
+import { LucideExternalLink, LucideCopy } from "#components"
 
 const props = defineProps<{
   files: SharedLinkFile[];
@@ -93,6 +129,26 @@ const statusBgColor = (status: LogStatus) => {
 
 const tableHead = ['File name', 'Created at', 'Downloads', 'Status', 'Actions']
 
+const copiedFileId = ref<string | null>(null)
+
+const copyLink = async (file: SharedLinkFile) => {
+  try {
+    const baseUrl = window.location.origin
+
+    const shareToken = file.id || 'random-share-token'
+    const fullShareUrl = `${ baseUrl }/share/${ shareToken }`
+
+    await navigator.clipboard.writeText(fullShareUrl)
+
+    copiedFileId.value = file.id
+
+    setTimeout(() => {
+      copiedFileId.value = null
+    }, 4000)
+  } catch (e) {
+    console.error(e)
+  }
+}
 </script>
 
 

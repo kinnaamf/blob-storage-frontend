@@ -29,7 +29,7 @@ const totalLinksCount = computed(() => {
 })
 
 const totalDownloadsCount = computed(() => {
-  return props.links.length
+  return props.links.reduce((sum, num) => sum + num.downloadsCount, 0);
 })
 
 const expiringSoonCount = computed(() => {
