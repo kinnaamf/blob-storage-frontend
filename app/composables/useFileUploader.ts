@@ -48,13 +48,35 @@ export const useFileUploader = () => {
   const getFileIconClass = (file: File) => {
     switch (getFileIcon(file)) {
       case LucideFileText: return 'bg-rose-500/50 stroke-rose-400'
-      case LucideVideo: return 'stroke-brand-primary'
+      case LucideVideo: return 'stroke-brand-primary bg-blue-500/50'
       case LucideFolderArchive: return 'bg-amber-500/50 stroke-amber-400'
       case LucideFileHeadphone: return 'bg-cyan-500/50 stroke-cyan-400'
 
       default: return 'bg-blue-500/50 stroke-sky-400'
     }
+  }
 
+  const getIconColor = (file: File) => {
+    switch (getFileIcon(file)) {
+      case LucideFileText: return 'stroke-rose-400'
+      case LucideVideo: return 'stroke-brand-primary'
+      case LucideFolderArchive: return 'stroke-amber-400'
+      case LucideFileHeadphone: return 'stroke-cyan-400'
+
+      default: return 'stroke-sky-400'
+    }
+
+  }
+
+  const getIconBg = (file: File) => {
+    switch (getFileIcon(file)) {
+      case LucideFileText: return 'bg-rose-500/50'
+      case LucideVideo: return 'bg-blue-500/50'
+      case LucideFolderArchive: return 'bg-amber-500/50'
+      case LucideFileHeadphone: return 'bg-cyan-500/50'
+
+      default: return 'bg-blue-500/50'
+    }
   }
 
   const getFilePreview = (file: File) => {
@@ -137,7 +159,9 @@ export const useFileUploader = () => {
     handleFileChange,
     handleDrop,
     normalizeFilename,
-    getSize
+    getSize,
+    getIconColor,
+    getIconBg
   }
 
 }

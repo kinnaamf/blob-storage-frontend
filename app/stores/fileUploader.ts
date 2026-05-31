@@ -1,8 +1,9 @@
 import { defineStore } from "pinia";
+import type { UploadedFile } from "@/types/file"
 
 export const useFileStore = defineStore("fileStore", () => {
-  const filesToUpload = ref<File[]>([])
-  const uploadedFiles = ref<File[]>([])
+  const filesToUpload = ref<UploadedFile[]>([])
+  const uploadedFiles = ref<UploadedFile[]>([])
 
   const GB_FACTOR = ref<number>(1024 ** 3)
   const TOTAL_AVAILABLE_SPACE = ref<number>(10 * GB_FACTOR.value)
@@ -91,6 +92,8 @@ export const useFileStore = defineStore("fileStore", () => {
     return `${fileSize} ${storageUnit}`
   })
 
+  const sharedFiles = computed(() => uploadedFiles.value.filter(file => file.isShared))
+
   return {
     filesToUpload,
     uploadedFiles,
@@ -102,6 +105,7 @@ export const useFileStore = defineStore("fileStore", () => {
     TOTAL_AVAILABLE_SPACE,
     getTotalUsedSpace,
     formattedUsedSpace,
-    getRemainingSpace
+    getRemainingSpace,
+    sharedFiles
   }
 })
