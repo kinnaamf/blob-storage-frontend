@@ -1,20 +1,29 @@
 <template>
 <div class="bg-brand-card/90 rounded-lg p-1 border border-brand-border shadow-md w-48 overflow-y-auto">
   <ul>
-    <li class="dropdown-menu-item">
+    <li class="dropdown-menu-item"
+        @click=""
+
+    >
       <LucideEye :size="16"/>
       Preview
     </li>
-    <li class="dropdown-menu-item">
+    <li class="dropdown-menu-item"
+      @click=""
+    >
       <LucideDownload :size="16"/>
       Download
     </li>
-    <li class="dropdown-menu-item">
+    <li class="dropdown-menu-item"
+        @click=""
+    >
       <LucideShare2 :size="16"/>
       Share
     </li>
     <li class="bg-brand-border h-px -mx-1 my-1"></li>
-    <li class="dropdown-menu-item text-red-500">
+    <li class="dropdown-menu-item text-red-500"
+        @click=""
+    >
       <LucideTrash :size="16"/>
       Delete
     </li>
