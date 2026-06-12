@@ -48,14 +48,16 @@
     <Transition name="fade-in">
       <AppPopup
           class="absolute bottom-20 right-4 z-20"
-          v-if="openedPopupIdx === idx"/>
+          v-if="openedPopupIdx === idx"
+          :file="file"
+          @close="openedPopupIdx = null"
+      />
     </Transition>
   </div>
 </template>
 
 <script setup lang="ts">
 import AppPopup from "~/components/AppPopup.vue";
-import { usePopup } from "~/composables/usePopup";
 
 const fileStore = useFileStore()
 const { normalizeFilename, getFilePreview, getFileIcon, getFileIconClass, getSize } = useFileUploader()

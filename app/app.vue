@@ -20,4 +20,8 @@
   opacity: 0;
   filter: blur(1rem);
 }
+
+.card {
+  @apply rounded-2xl border border-brand-border bg-brand-card;
+}
 </style>

@@ -2,27 +2,26 @@
 <div class="bg-brand-card/90 rounded-lg p-1 border border-brand-border shadow-md w-48 overflow-y-auto">
   <ul>
     <li class="dropdown-menu-item"
-        @click=""
-
+        @click.stop="previewFile(props.file)"
     >
       <LucideEye :size="16"/>
       Preview
     </li>
     <li class="dropdown-menu-item"
-      @click=""
+      @click.stop="downloadFile(props.file)"
     >
       <LucideDownload :size="16"/>
       Download
     </li>
     <li class="dropdown-menu-item"
-        @click=""
+        @click.stop="copyLink(props.file)"
     >
       <LucideShare2 :size="16"/>
       Share
     </li>
     <li class="bg-brand-border h-px -mx-1 my-1"></li>
     <li class="dropdown-menu-item text-red-500"
-        @click=""
+        @click.stop="deleteFile(props.file)"
     >
       <LucideTrash :size="16"/>
       Delete
@@ -32,7 +31,11 @@
 </template>
 
 <script setup lang="ts">
+const props = defineProps<{
+  file: any
+}>()
 
+const { previewFile, downloadFile, deleteFile, copyLink } = useFileActions()
 </script>
 
 <style scoped lang="postcss">

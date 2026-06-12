@@ -112,10 +112,7 @@ type LogStatus = 'Active' | 'Expiring'
 
 const {
   getFileIcon,
-  getSize,
-  getFileIconClass,
   getFilePreview,
-  normalizeFilename,
   getIconColor,
   getIconBg
 } = useFileUploader()
@@ -129,26 +126,8 @@ const statusBgColor = (status: LogStatus) => {
 
 const tableHead = ['File name', 'Created at', 'Downloads', 'Status', 'Actions']
 
-const copiedFileId = ref<string | null>(null)
 
-const copyLink = async (file: SharedLinkFile) => {
-  try {
-    const baseUrl = window.location.origin
-
-    const shareToken = file.id || 'random-share-token'
-    const fullShareUrl = `${ baseUrl }/share/${ shareToken }`
-
-    await navigator.clipboard.writeText(fullShareUrl)
-
-    copiedFileId.value = file.id
-
-    setTimeout(() => {
-      copiedFileId.value = null
-    }, 4000)
-  } catch (e) {
-    console.error(e)
-  }
-}
+const { copyLink, copiedFileId } = useFileActions()
 </script>
 
 

@@ -38,7 +38,10 @@
     <Transition name="fade-in">
       <AppPopup
           class="absolute bottom-14 right-4 z-20"
-          v-if="openedPopupIdx === idx"/>
+          v-if="openedPopupIdx === idx"
+          :file="file"
+          @close="openedPopupIdx = null"
+      />
     </Transition>
   </div>
 </template>
