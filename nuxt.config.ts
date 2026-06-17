@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@pinia/nuxt',
     'nuxt-lucide-icons',
+    'nuxt-charts',
   ],
   css: ['@/assets/pcss/main.pcss'],
   app: {
