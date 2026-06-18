@@ -2,6 +2,7 @@
 
 import StorageCards from "~/components/storage/StorageCards.vue";
 import DataStructureChart from "~/components/storage/DataStructureChart.vue";
+import TrafficChart from "~/components/storage/TrafficChart.vue";
 
 
 </script>
@@ -21,7 +22,9 @@ import DataStructureChart from "~/components/storage/DataStructureChart.vue";
         <DataStructureChart/>
       </div>
       <div class="card p-6 w-full">
-        <h2 class="text-lg font-semibold">Bandwidth traffic</h2>
+        <h2 class="text-lg font-semibold">Bandwidth Traffic</h2>
+        <h3 class="mt-6 mb-4 text-sm text-brand-muted">Weekly Overview</h3>
+        <TrafficChart/>
       </div>
     </div>
   </div>
