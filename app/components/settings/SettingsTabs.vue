@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-brand-secondary/50 border border-brand-border rounded-2xl p-1 flex gap-2 items-center">
+  <div class="bg-brand-secondary/50 border border-brand-border rounded-2xl p-1 flex gap-2 items-center mb-8">
     <NuxtLink
         v-for="tab in tabs"
         :key="tab.link"
