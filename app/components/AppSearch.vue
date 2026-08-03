@@ -1,6 +1,6 @@
 <template>
   <div class="relative w-full max-w-md">
-    <div ref="searchContainer">
+    <div ref="searchContainer" class="flex shrink-0 items-center gap-2 md:gap-4">
       <LucideSearch
           class="absolute top-3 left-3 stroke-brand-muted"
           :size="16"
@@ -108,10 +108,7 @@ onUnmounted(() => {
 
 <style>
   .app-input {
-    @apply h-10 pl-10 w-full
-    text-sm placeholder:text-brand-muted text-white
-    bg-brand-secondary rounded-2xl border border-brand-border
-    outline-none focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary;
+    @apply h-10 w-full rounded-xl border border-brand-border bg-brand-secondary pl-10 pr-4 text-sm text-brand-foreground placeholder:text-brand-muted focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary;
   }
 
   .slide-in-enter-from,

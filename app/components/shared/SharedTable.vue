@@ -71,7 +71,7 @@
                     :size="16"
                 />
                 <span
-                    class="font-medium"
+                    class="font-medium text-nowrap"
                     :class="copiedFileId === file.id ? 'text-emerald-500' : 'text-brand-primary'"
                 >
                   {{ copiedFileId === file.id ? 'Copied!' : 'Copy Link' }}
@@ -82,7 +82,7 @@
                 <LucideTrash
                     class="stroke-brand-destructive"
                     :size="16"/>
-                <span class="text-brand-destructive">Revoke Link</span>
+                <span class="text-brand-destructive text-nowrap">Revoke Link</span>
               </button>
 
               <button class="group hover:bg-brand-muted/10 flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all">

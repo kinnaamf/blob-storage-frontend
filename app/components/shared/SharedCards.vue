@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-3 gap-4 mb-8">
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
     <div class="card p-4">
       <p class="text-sm text-brand-muted">Total Links</p>
       <p class="mt-1 text-2xl font-bold text-foreground">{{ totalLinksCount }}</p>

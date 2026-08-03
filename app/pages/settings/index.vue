@@ -1,5 +1,5 @@
 <template>
-<div class="card p-8">
+<div class="card p-4 md:p-8">
   <h2 class="text-lg font-semibold text-brand-foreground mb-4">Profile Picture</h2>
 
   <div class="flex gap-6">
@@ -11,12 +11,12 @@
         accept="image/*, .gif"
         @change="handleAvatarChange"
     >
-    <label for="avatar" class="cursor-pointer">
+    <label for="avatar" class="cursor-pointer w-16 h-16 sm:w-24 sm:h-24 rounded-full shrink-0">
       <img
           v-if="userStore.avatar"
           :src="userStore.avatar"
           alt="Avatar"
-          class="w-24 h-24 rounded-full"
+          class="w-16 h-16 sm:w-24 sm:h-24 rounded-full"
       >
 
       <div v-else class="relative">

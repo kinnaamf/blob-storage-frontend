@@ -6,6 +6,7 @@
         :to="item.to"
         active-class="active"
         class="group nav-link hover:bg-brand-secondary"
+        @click="isMenuOpen = false"
     >
       <component
           :is="item.icon"
@@ -22,6 +23,7 @@
 
 <script lang="ts" setup>
 import { LucideFolderOpen, LucideLink2, LucideChartColumn, LucideSettings } from "#components";
+import { useMenu } from "~/composables/useMenu";
 
 interface NavItem {
   title: string
@@ -51,6 +53,8 @@ const navItems: NavItem[] = [
     icon: LucideSettings
   },
 ]
+
+const { isMenuOpen } = useMenu()
 </script>
 
 <style scoped lang="postcss">

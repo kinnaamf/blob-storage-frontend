@@ -1,13 +1,12 @@
 <template>
-  <div class="flex items-center gap-3
-                    rounded-2xl border border-brand-border bg-brand-secondary hover:bg-brand-secondary/80 transition-colors duration-200
-                  px-3 py-1.5">
+  <div class="relative">
+    <NuxtLink to="/settings" class="flex items-center gap-3 rounded-xl border border-brand-border bg-brand-secondary p-1 transition-colors hover:bg-brand-secondary/80 md:px-3 md:py-1.5">
         <span class="">
           <img
               v-if="avatar"
               :src="avatar"
               alt="https://placehold.co"
-              class="w-8 h-8 rounded-full" />
+              class="aspect-square rounded-full w-8 h-8" />
 
           <component
               v-else
@@ -16,10 +15,11 @@
               class="stroke-brand-muted"
           />
         </span>
-    <div class="flex flex-col">
-      <span class="text-sm font-medium text-brand-foreground">{{ name }}</span>
-      <span class="text-xs text-brand-muted">{{ plan }}</span>
-    </div>
+      <div class="hidden text-left md:block">
+        <p class="text-sm font-medium text-brand-foreground">{{ name }}</p>
+        <p class="text-xs text-brand-muted">{{ plan }}</p>
+      </div>
+    </NuxtLink>
   </div>
 </template>
 

@@ -16,7 +16,7 @@ import TrafficChart from "~/components/storage/TrafficChart.vue";
 
     <StorageCards/>
 
-    <div class="flex justify-between gap-8">
+    <div class="flex flex-col justify-between gap-8">
       <div class="card p-6 w-full">
         <h2 class="text-lg font-semibold">Data structure breakdown</h2>
         <DataStructureChart/>

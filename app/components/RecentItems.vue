@@ -9,7 +9,7 @@
       />
     </div>
     <div v-if="fileStore.uploadedFiles.length > 0">
-      <div v-if="viewMode === 'grid'" class="grid grid-cols-4 gap-4">
+      <div v-if="viewMode === 'grid'" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         <RecentGrid />
       </div>
 
