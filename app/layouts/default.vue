@@ -12,19 +12,21 @@
         isMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
       ]"
     >
-      <div class="flex h-16 items-center justify-between md:justify-normal gap-3 border-b border-brand-border px-6">
-        <div class="flex h-9 w-9 items-center justify-center rounded-2xl bg-brand-primary text-white">
-          <LucideCloud :size="20" />
-        </div>
-        <h2 class="text-lg font-semibold tracking-tight">Blob Storage</h2>
+      <NuxtLink to="/">
+        <div class="flex h-16 items-center justify-between md:justify-normal gap-3 border-b border-brand-border px-6">
+          <div class="flex h-9 w-9 items-center justify-center rounded-2xl bg-brand-primary text-white">
+            <LucideCloud :size="20" />
+          </div>
+          <h2 class="text-lg font-semibold tracking-tight">Blob Storage</h2>
 
-        <button
-            class="h-8 w-8 md:hidden"
-            @click="isMenuOpen = false"
-        >
-          <LucideX class="stroke-brand-muted cursor-pointer hover:stroke-brand-foreground transition-all duration-200" :size="20"/>
-        </button>
-      </div>
+          <button
+              class="h-8 w-8 md:hidden"
+              @click="isMenuOpen = false"
+          >
+            <LucideX class="stroke-brand-muted cursor-pointer hover:stroke-brand-foreground transition-all duration-200" :size="20"/>
+          </button>
+        </div>
+      </NuxtLink>
 
       <AppNavbar />
 
