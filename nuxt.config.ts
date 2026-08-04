@@ -12,5 +12,10 @@ export default defineNuxtConfig({
   css: ['@/assets/pcss/main.pcss'],
   app: {
     pageTransition: {name : 'page', mode: 'out-in'},
+  },
+  runtimeConfig: {
+    public: {
+      apiBase: 'http://localhost:8000',
+    }
   }
 })
